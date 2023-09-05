@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
+@CrossOrigin(origins = "*")
 @RequestMapping("/product")
 public class ProductController {
     private final ProductServices productServices;
@@ -24,9 +25,6 @@ public class ProductController {
     @PostMapping("/")
     public void save(@RequestBody Product product) {
         productServices.save(product);
-        Category category = categoryServices.findByID(product.getCategory().getId());
-        category.getProducts().add(product);
-        categoryServices.update(category);
     }
 
     @GetMapping("/{id}")
